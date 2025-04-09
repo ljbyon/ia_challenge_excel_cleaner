@@ -3,8 +3,8 @@ import pandas as pd
 import io
 
 def main():
-    st.title("Excel Column Cleaner")
-    st.write("Upload an Excel file to remove columns with '_xxx' suffix")
+    st.title("Limpiador de Excel")
+    st.write("Cargar archivo excel para remover columnas con sufijo '_xxx'")
     
     uploaded_file = st.file_uploader("Choose an Excel file", type="xlsx")
     
@@ -14,12 +14,12 @@ def main():
             df = pd.read_excel(uploaded_file)
             
             # Display original dataframe info
-            st.subheader("Original DataFrame")
-            st.write(f"Shape: {df.shape}")
-            st.write(f"Columns: {', '.join(df.columns.tolist())}")
-            
+            st.subheader("Tabla Original")
+            st.write(f"Skus: {df.shape[0]}")
+            st.write(f"Columnas: {df.shape[1]}")
+
             # Check if user wants to see the original data
-            if st.checkbox("Show original data"):
+            if st.checkbox("Mostrar tabla original"):
                 st.dataframe(df)
             
             # Process the dataframe
@@ -28,12 +28,12 @@ def main():
             df_filtered = df[filtered_cols]
             
             # Display processed dataframe info
-            st.subheader("Processed DataFrame")
-            st.write(f"Shape: {df_filtered.shape}")
-            st.write(f"Columns: {', '.join(df_filtered.columns.tolist())}")
+            st.subheader("Tabla procesada")
+            st.write(f"Skus: {df_filtered.shape[0]}")
+            st.write(f"Columnas: {df_filtered.shape[1]}")
             
             # Check if user wants to see the processed data
-            if st.checkbox("Show processed data"):
+            if st.checkbox("Mostrar tabla procesada"):
                 st.dataframe(df_filtered)
             
             # Create download button
@@ -44,7 +44,7 @@ def main():
             output.seek(0)
             
             st.download_button(
-                label="Download processed Excel file",
+                label="Descargar Excel",
                 data=output,
                 file_name="processed_excel.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
