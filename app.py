@@ -154,7 +154,7 @@ def main():
 
 
             with pd.ExcelWriter(output_akeneo, engine='xlsxwriter',
-                                options={'strings_to_numbers': False}) as writer:
+                                engine_kwargs={'options': {'strings_to_numbers': False}}) as writer:
                 df_akeneo.to_excel(writer, index=False, sheet_name='Sheet1')
 
 
@@ -192,7 +192,7 @@ def main():
             #     df_archive.to_excel(writer, index=False, sheet_name='Sheet1')
 
             with pd.ExcelWriter(output_archive, engine='xlsxwriter',
-                                options={'strings_to_numbers': False}) as writer:
+                                engine_kwargs={'options': {'strings_to_numbers': False}}) as writer:
                 df_archive.to_excel(writer, index=False, sheet_name='Sheet1')
 
 
