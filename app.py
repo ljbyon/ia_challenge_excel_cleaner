@@ -68,7 +68,8 @@ def main():
         try:
             # Read the Excel file
             with st.spinner("Cargando archivo..."):
-                df_original = pd.read_excel(uploaded_file)
+                #df_original = pd.read_excel(uploaded_file)
+                df_original = pd.read_excel(uploaded_file, dtype={"sku": str})
             
             # Validate file has data
             if df_original.empty:
@@ -148,8 +149,15 @@ def main():
             akeneo_filename = f"{filename_without_ext}_limpio.xlsx"
             
             output_akeneo = io.BytesIO()
-            with pd.ExcelWriter(output_akeneo, engine='xlsxwriter') as writer:
+            # with pd.ExcelWriter(output_akeneo, engine='xlsxwriter') as writer:
+            #     df_akeneo.to_excel(writer, index=False, sheet_name='Sheet1')
+
+
+            with pd.ExcelWriter(output_akeneo, engine='xlsxwriter',
+                                options={'strings_to_numbers': False}) as writer:
                 df_akeneo.to_excel(writer, index=False, sheet_name='Sheet1')
+
+
             output_akeneo.seek(0)
             
             st.download_button(
@@ -180,8 +188,14 @@ def main():
             archive_filename = f"{filename_without_ext}_archivo.xlsx"
             
             output_archive = io.BytesIO()
-            with pd.ExcelWriter(output_archive, engine='xlsxwriter') as writer:
+            # with pd.ExcelWriter(output_archive, engine='xlsxwriter') as writer:
+            #     df_archive.to_excel(writer, index=False, sheet_name='Sheet1')
+
+            with pd.ExcelWriter(output_archive, engine='xlsxwriter',
+                                options={'strings_to_numbers': False}) as writer:
                 df_archive.to_excel(writer, index=False, sheet_name='Sheet1')
+
+
             output_archive.seek(0)
             
             st.download_button(
